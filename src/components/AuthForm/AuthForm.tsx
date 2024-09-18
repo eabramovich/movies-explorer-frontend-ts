@@ -2,6 +2,7 @@ import { useState } from "react"
 import { AuthFormProps } from "./types"
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import styles from './AuthForm.module.scss';
 
 export const AuthForm = <T extends Record<string, any>>({
   fields,
@@ -22,7 +23,7 @@ export const AuthForm = <T extends Record<string, any>>({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.authForm} onSubmit={handleSubmit}>
       {fields.map((field) => (
         <Input 
           key={field.name}

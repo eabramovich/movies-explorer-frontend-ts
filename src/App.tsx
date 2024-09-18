@@ -1,14 +1,18 @@
 import { useState } from 'react'
-import { Button } from './components/ui/button'
-import { Input } from './components/ui/input/Input'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import LoginPage from './components/pages/LoginPage'
+import RegisterPage from './components/pages/RegisterPage'
 
 function App() {
 
   return (
-    <div>
-       <Button title='Регистрация'/> 
-       <Input value='123' onChange={() => console.log('123')} type='text' />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<LoginPage />} />
+        <Route path='/sign-in' element={<LoginPage />} />
+        <Route path='/sign-up' element={<RegisterPage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
