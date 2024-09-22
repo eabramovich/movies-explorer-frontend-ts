@@ -1,12 +1,21 @@
-import { InputProps } from "./types";
+import { InputHTMLAttributes } from 'react';
+import { FieldError } from 'react-hook-form';
 import styles from './Input.module.scss';
 
-export const Input: React.FC<InputProps> = ({ value, onChange, placeholder, type = 'text', disabled, ...props }) => {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  register: any;
+  name: string;
+  placeholder: string;
+  type: InputHTMLAttributes<HTMLInputElement>['type'];
+  disabled?: boolean;
+  error?: FieldError;
+}
+
+export const Input: React.FC<InputProps> = ({ register, name, placeholder, type = 'text', disabled, error, ...props}) => {
   return (
     <input 
-      className={styles.input}
-      value={value} 
-      onChange={onChange} 
+      className={`${styles.input} ${error ? styles.error : ''}`}
+      {...register(name)}
       placeholder={placeholder} 
       type={type} 
       disabled={disabled} 

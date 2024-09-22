@@ -1,11 +1,12 @@
+import { ButtonHTMLAttributes } from 'react';
 import styles from './Button.module.scss'
-import { ButtonProps } from './types'
 
-// interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-//   title: string;
-//   onClick?: () => void;
-//   type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
-// }
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  title: string;
+  onClick?: () => void;
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
+}
 
 export const Button: React.FC<ButtonProps> = ({
   title,

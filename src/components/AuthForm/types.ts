@@ -2,6 +2,7 @@ export interface FormField {
   name: string;
   type: 'text' | 'email' | 'password';
   placeholder: string;
+  required?: boolean;
 }
 
 export interface AuthFormProps<T> {

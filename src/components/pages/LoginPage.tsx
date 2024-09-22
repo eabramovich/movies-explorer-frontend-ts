@@ -10,9 +10,9 @@ const LoginPage: FC = () => {
     password: '',
   };
 
-  const handleLogin = async (values: typeof initialValues) => {
-    console.log('Login values:', values);
-    // Логика авторизации
+  const handleSubmit = (data: any) => {
+    console.log("Auth Data:", data);
+    // Здесь вы можете отправить данные на сервер
   };
 
   return (
@@ -20,7 +20,7 @@ const LoginPage: FC = () => {
       title="Рады видеть!"
       link={{ name: 'Регистрация', href: '/sign-up' }}
     >
-      <AuthForm initialValues={initialValues} buttonText="Войти" fields={loginFields} onSubmit={handleLogin} />
+      <AuthForm buttonText="Войти" onSubmit={handleSubmit} type="login"/>
     </AuthPage>
   )
 }

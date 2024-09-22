@@ -1,18 +1,18 @@
 import { FC } from "react";
 import AuthPage from "../AuthPage/AuthPage";
 import { AuthForm } from "../AuthForm/AuthForm";
-import { registerFields } from "../../constants/RegisterPage";
+//import { registerFields } from "../../constants/RegisterPage";
 
 const RegisterPage: FC = () => {
-  const initialValues = {
-    name: '',
-    email: '',
-    password: '',
-  };
+  // const initialValues = {
+  //   name: '',
+  //   email: '',
+  //   password: '',
+  // };
 
-  const handleLogin = async (values: typeof initialValues) => {
-    console.log('Register values:', values);
-    // Логика авторизации
+  const handleSubmit = (data: any) => {
+    console.log("Auth Data:", data);
+    // Здесь вы можете отправить данные на сервер
   };
 
   return (
@@ -20,7 +20,7 @@ const RegisterPage: FC = () => {
       title="Добро пожаловать!"
       link={{ name: 'Вход', href: '/sign-in' }}
     >
-      <AuthForm initialValues={initialValues} buttonText="Войти" fields={registerFields} onSubmit={handleLogin} />
+      <AuthForm type="register" buttonText="Зарегестрироваться" onSubmit={handleSubmit} />
     </AuthPage>
   )
 }

@@ -1,39 +1,63 @@
-import { useState } from "react"
-import { AuthFormProps } from "./types"
+import { useForm, SubmitHandler } from "react-hook-form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import styles from './AuthForm.module.scss';
 
-export const AuthForm = <T extends Record<string, any>>({
-  fields,
-  initialValues,
-  onSubmit,
-  buttonText
-}: AuthFormProps<T>) => {
-  const [formValues, setFormValues] = useState<T>(initialValues);
+interface FormFiled {
+  name: string;
+}
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormValues({...formValues, [name]: value});
-  }
+type FormFields = {
+  name?: string;
+  email: string;
+  password: string;
+}
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    await onSubmit(formValues);
+interface AuthFormProps {
+  type: 'login' | 'register';
+  onSubmit: (data: FormFields) => void;
+  buttonText: string;
+}
+
+export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, buttonText }) => {
+  const { register, handleSubmit, formState: { errors } } = useForm<FormFields>({
+    defaultValues: {
+      name: '',
+      email: '',
+      password: ''
+    }
+  });
+
+  const onFormSubmit: SubmitHandler<FormFields> = async (data) => {
+    onSubmit(data);
   }
 
   return (
-    <form className={styles.authForm} onSubmit={handleSubmit}>
-      {fields.map((field) => (
-        <Input 
-          key={field.name}
-          name={field.name}
-          value={formValues[field.name]}
-          type={field.type}
-          placeholder={field.placeholder}
-          onChange={handleChange}
+    <form className={styles.authForm} onSubmit={handleSubmit(onFormSubmit)} noValidate>
+      {type === 'register' && (
+        <Input
+          register={register}
+          name="name"
+          type="text"
+          placeholder="Имя"
+          error={errors.name}
         />
-      ))}
+      )}
+      <Input
+        register={register}
+        name="email"
+        type="email"
+        placeholder="E-mail"
+        error={errors.email}
+      />
+      <Input
+        register={register}
+        name="password"
+        type="password"
+        placeholder="Пароль"
+        error={errors.password}
+      />
+      {/* <button>{buttonText}</button> */}
       <Button title={buttonText} type="submit"/>
     </form>
   )
