@@ -5,3 +5,34 @@
   height: 380px;
   justify-content: space-between;
 }
+
+.authFormInput {
+  border: none;
+  border-bottom: 1px solid #E8E8E8;
+  background: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: 400;
+  padding-bottom: 11px;
+  padding-left: 0;
+  padding-top: 5px;
+  width: 100%;
+}
+
+.authFormInputError {
+  color: #FF3055;
+}
+
+.authFormInput:focus {
+  border-bottom: 1px solid #3456F3;
+  font-weight: 500;
+}
+
+.authFormErrorMessage {
+  color: red;
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 7px;
+  min-height: 18px;
+}

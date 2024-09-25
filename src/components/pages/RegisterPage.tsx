@@ -1,7 +1,7 @@
 import { FC } from "react";
 import AuthPage from "../AuthPage/AuthPage";
 import { AuthForm } from "../AuthForm/AuthForm";
-//import { registerFields } from "../../constants/RegisterPage";
+import { registerFields } from "../../constants/registerFields";
 
 const RegisterPage: FC = () => {
   // const initialValues = {
@@ -20,7 +20,7 @@ const RegisterPage: FC = () => {
       title="Добро пожаловать!"
       link={{ name: 'Вход', href: '/sign-in' }}
     >
-      <AuthForm type="register" buttonText="Зарегестрироваться" onSubmit={handleSubmit} />
+      <AuthForm fields={registerFields} buttonText="Зарегестрироваться" onSubmit={handleSubmit} />
     </AuthPage>
   )
 }

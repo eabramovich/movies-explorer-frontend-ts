@@ -1,14 +1,6 @@
-export interface FormField {
-  name: string;
-  type: 'text' | 'email' | 'password';
-  placeholder: string;
-  required?: boolean;
+export interface AuthFormData {
+  email: string;
+  password: string;
+  confirmPassword?: string;  // Поле для регистрации
+  name?: string;
 }
-
-export interface AuthFormProps<T> {
-  fields: FormField[];
-  initialValues: T;
-  onSubmit: (values:T) => Promise<void>
-  buttonText: string;
-}
-

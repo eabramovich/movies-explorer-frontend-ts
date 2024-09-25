@@ -1,64 +1,54 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { useForm, SubmitHandler, Path } from "react-hook-form";
+import { Input } from "../Input/Input";
+import { Button } from "../Button/Button";
 import styles from './AuthForm.module.scss';
+import { validationRules } from "../../utils/validation";
 
-interface FormFiled {
-  name: string;
+
+export interface FormField<T> {
+  name: Path<T>;
+  type: 'text' | 'email' | 'password';
+  placeholder?: string;
+  validation?: validationRules;
 }
 
-type FormFields = {
-  name?: string;
-  email: string;
-  password: string;
-}
 
-interface AuthFormProps {
-  type: 'login' | 'register';
-  onSubmit: (data: FormFields) => void;
+interface AuthFormProps<T> {
+  fields: FormField<T>[];
+  onSubmit: (data: T) => void;
   buttonText: string;
 }
 
-export const AuthForm: React.FC<AuthFormProps> = ({ type, onSubmit, buttonText }) => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormFields>({
-    defaultValues: {
-      name: '',
-      email: '',
-      password: ''
-    }
+export const AuthForm = <T extends Record<string, any>>({
+  fields,
+  onSubmit, 
+  buttonText
+}: AuthFormProps<T>) => {
+  const { register, handleSubmit, formState: { errors, isValid }, watch } = useForm<T>({
+    mode: 'onChange'
   });
 
-  const onFormSubmit: SubmitHandler<FormFields> = async (data) => {
+  const onFormSubmit: SubmitHandler<T> = async (data) => {
     onSubmit(data);
   }
 
   return (
     <form className={styles.authForm} onSubmit={handleSubmit(onFormSubmit)} noValidate>
-      {type === 'register' && (
-        <Input
-          register={register}
-          name="name"
-          type="text"
-          placeholder="Имя"
-          error={errors.name}
-        />
-      )}
-      <Input
-        register={register}
-        name="email"
-        type="email"
-        placeholder="E-mail"
-        error={errors.email}
-      />
-      <Input
-        register={register}
-        name="password"
-        type="password"
-        placeholder="Пароль"
-        error={errors.password}
-      />
-      {/* <button>{buttonText}</button> */}
-      <Button title={buttonText} type="submit"/>
+      {fields.map((field) => (
+        <div key={String(field.name)} >
+          <Input 
+            className={`${styles.authFormInput} ${errors[field.name] ? styles.authFormInputError : ''}`}
+            register={register(field.name as Path<T>, field.validation)}
+            name={String(field.name)}
+            type={field.type}
+            placeholder={String(field.placeholder)}
+          />
+          {errors[field.name] && (
+            <span className={styles.authFormErrorMessage}>{errors[field.name]?.message as string}</span>
+          )}
+        </div>
+      ))}
+      <Button title={buttonText} type="submit" disabled={!isValid} />
     </form>
   )
 }
