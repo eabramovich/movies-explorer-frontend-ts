@@ -5,6 +5,7 @@ import { AuthForm } from "../AuthForm/AuthForm";
 import { FormField } from "../AuthForm/AuthForm";
 import { AuthFormData } from "../AuthForm/types";
 import { loginFields } from "../../constants/loginFields";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 // interface AuthFormData {
 //   email: string;
@@ -16,6 +17,8 @@ import { loginFields } from "../../constants/loginFields";
 
 
 const LoginPage: FC = () => {
+  const state = useTypedSelector(state => state);
+  console.log(state);
 
   const handleSubmit = (data: AuthFormData) => {
     console.log('123');
