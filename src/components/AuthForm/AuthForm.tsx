@@ -17,12 +17,14 @@ interface AuthFormProps<T> {
   fields: FormField<T>[];
   onSubmit: (data: T) => void;
   buttonText: string;
+  errorMessage: string | null;
 }
 
 export const AuthForm = <T extends Record<string, any>>({
   fields,
   onSubmit, 
-  buttonText
+  buttonText,
+  errorMessage
 }: AuthFormProps<T>) => {
   const { register, handleSubmit, formState: { errors, isValid }, watch } = useForm<T>({
     mode: 'onChange'
@@ -31,6 +33,8 @@ export const AuthForm = <T extends Record<string, any>>({
   const onFormSubmit: SubmitHandler<T> = async (data) => {
     onSubmit(data);
   }
+
+  console.log('Error', errorMessage)
 
   return (
     <form className={styles.authForm} onSubmit={handleSubmit(onFormSubmit)} noValidate>
@@ -44,10 +48,11 @@ export const AuthForm = <T extends Record<string, any>>({
             placeholder={String(field.placeholder)}
           />
           {errors[field.name] && (
-            <span className={styles.authFormErrorMessage}>{errors[field.name]?.message as string}</span>
+            <span className={styles.authFormInputErrorMessage}>{errors[field.name]?.message as string}</span>
           )}
         </div>
       ))}
+      {errorMessage && <span className={`authFormErrorMessage ${errorMessage ? "authFormErrorMessageActive" : "" }`}>{errorMessage}</span>}
       <Button title={buttonText} type="submit" disabled={!isValid} />
     </form>
   )

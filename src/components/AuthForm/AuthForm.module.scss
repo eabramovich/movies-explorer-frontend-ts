@@ -28,7 +28,16 @@
   font-weight: 500;
 }
 
-.authFormErrorMessage {
+.authFormInputErrorMessage {
+  color: red;
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 7px;
+  min-height: 18px;
+}
+
+.authFormErrorMessageActive {
   color: red;
   display: block;
   font-size: 12px;
