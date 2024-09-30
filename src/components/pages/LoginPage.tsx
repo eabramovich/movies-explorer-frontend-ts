@@ -26,7 +26,7 @@ const LoginPage: FC = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate('\movies', {replace: true})
+      navigate('/movies', {replace: true})
     }
   }, [isLoggedIn, navigate]);
 

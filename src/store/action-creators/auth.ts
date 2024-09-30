@@ -11,9 +11,16 @@ export const loginUser = (email: string, password: string) => {
       localStorage.setItem('token', response.data.token);
       dispatch({type: UserActionTypes.LOGIN_SUCCESS, payload: response.data})
     } catch (e: any) {
-      console.log("Ошибка авторизации", e.message);
+      console.log('Ошибка авторизации', e.message);
       dispatch({type: UserActionTypes.LOGIN_ERROR, payload: e.message})
-      console.log("Ошибка авторизации");
+      console.log('Ошибка авторизации');
     }
+  }
+}
+
+export const logoutUser = () => {
+  return (dispatch: Dispatch<UserAction>) => {
+    localStorage.removeItem('token');
+    dispatch({type: UserActionTypes.LOGOUT_SUCCESS});
   }
 }

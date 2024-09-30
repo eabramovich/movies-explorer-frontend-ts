@@ -21,6 +21,8 @@ export const userReducer = (state = initialState, action: UserAction): AuthState
     case UserActionTypes.LOGIN_SUCCESS:
       console.log('Action payload', action.payload);
       return { ...state, token: action.payload.token, isLoggedIn: true }
+    case UserActionTypes.LOGOUT_SUCCESS:
+      return {...state, token: null, isLoggedIn: false}
     default:
       return state;
   }

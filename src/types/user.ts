@@ -16,6 +16,7 @@ export enum UserActionTypes {
   LOGIN_REQUEST = "LOGIN_REQUEST",
   LOGIN_SUCCESS = "LOGIN_SUCCESS",
   LOGIN_ERROR = "LOGIN_ERROR",
+  LOGOUT_SUCCESS = "LOGOUT",
   GET_USER_INFO_REQUEST = "GET_USER_INFO_REQUEST",
   GET_USER_INFO_SUCCESS = "GET_USER_INFO_SUCCESS",
   GET_USER_INFO_ERROR = "GET_USER_INFO_ERROR"
@@ -35,6 +36,10 @@ interface LoginSuccessAction {
 interface LoginErrorAction {
   type: typeof UserActionTypes.LOGIN_ERROR;
   payload: string;
+}
+
+interface LogoutSuccess {
+  type: typeof UserActionTypes.LOGOUT_SUCCESS,
 }
 
 interface GetUserInfoRequestAction {
@@ -58,3 +63,4 @@ export type UserAction =
   | LoginRequestAction
   | LoginSuccessAction
   | LoginErrorAction
+  | LogoutSuccess
